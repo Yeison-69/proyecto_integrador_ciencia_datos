@@ -47,7 +47,7 @@ def cargar_dataset(ruta, nombre):
 
 def verificar_estructura(df, nombre):
     """Verificar estructura básica del dataset"""
-    st.write(f"**📊 Resumen de {nombre}:**")
+    st.write(f"**Resumen de {nombre}:**")
     
     col1, col2, col3, col4 = st.columns(4)
     
@@ -62,7 +62,7 @@ def verificar_estructura(df, nombre):
         st.metric("Memoria", f"{df.memory_usage(deep=True).sum() / 1024:.1f} KB")
     
     # Tipos de datos
-    st.write("**🧮 Tipos de datos:**")
+    st.write("**Tipos de datos:**")
     tipos_info = []
     for col in df.columns:
         tipos_info.append({
@@ -139,7 +139,7 @@ def cargar_diccionario():
             with open(DICCIONARIO, 'r', encoding='utf-8') as f:
                 diccionario = json.load(f)
             
-            st.subheader("🗂️ Diccionario de Datos")
+            st.subheader("Diccionario de Datos")
             
             if isinstance(diccionario, dict):
                 for tabla, columnas in diccionario.items():
@@ -185,7 +185,7 @@ cargar_diccionario()
 
 # --- RESUMEN FINAL ---
 st.markdown("---")
-st.header("📋 Resumen de la Recolección")
+st.header("Resumen de la Recolección")
 
 col1, col2 = st.columns(2)
 

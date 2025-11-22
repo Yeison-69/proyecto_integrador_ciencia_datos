@@ -6,7 +6,7 @@ import io
 
 # Configuración de la página
 st.set_page_config(page_title="EDA Completo", layout="wide")
-st.title("📊 Exploración Inicial y Comprensión de los Datos")
+st.title("Exploración Inicial y Comprensión de los Datos")
 
 # --- 1. Cargar el archivo ---
 st.subheader("Cargar archivo CSV")
@@ -24,7 +24,7 @@ if uploaded_file is not None:
     st.success("Archivo cargado correctamente ✔️")
 
     # --- 3. VISTA PREVIA DE DATOS ---
-    st.header("👀 Vista Previa de Datos")
+    st.header("Vista Previa de Datos")
     
     col1, col2 = st.columns(2)
     
@@ -37,7 +37,7 @@ if uploaded_file is not None:
         st.dataframe(df.tail(10))
 
     # --- 4. RESUMEN DEL DATASET ---
-    st.header("📋 Resumen del Dataset")
+    st.header("Resumen del Dataset")
     
     # Métricas clave
     col1, col2, col3, col4, col5 = st.columns(5)
@@ -56,7 +56,7 @@ if uploaded_file is not None:
         st.metric("Memoria usada", f"{df.memory_usage(deep=True).sum() / 1024:.1f} KB")
 
     # Tipos de datos
-    st.subheader("🧮 Tipos de Datos por Columna")
+    st.subheader("Tipos de Datos por Columna")
     tipos_datos = []
     for columna in df.columns:
         tipo = str(df[columna].dtype)
@@ -102,7 +102,7 @@ if uploaded_file is not None:
             st.success("✅ No hay registros duplicados")
 
     # --- 6. ANÁLISIS DE VARIABLES NUMÉRICAS ---
-    st.header("📈 Análisis de Variables Numéricas")
+    st.header("Análisis de Variables Numéricas")
     
     # Estadísticas descriptivas
     st.subheader("Estadísticas Descriptivas")
@@ -125,7 +125,7 @@ if uploaded_file is not None:
                     st.pyplot(fig)
         
         # Boxplots para outliers
-        st.subheader("📦 Detección de Valores Atípicos (Boxplots)")
+        st.subheader("Detección de Valores Atípicos (Boxplots)")
         for fila in columnas_por_fila:
             cols = st.columns(len(fila))
             for i, col_name in enumerate(fila):
@@ -156,7 +156,7 @@ if uploaded_file is not None:
         st.dataframe(pd.DataFrame(outliers_info))
 
     # --- 7. ANÁLISIS DE VARIABLES CATEGÓRICAS ---
-    st.header("🏷️ Análisis de Variables Categóricas")
+    st.header("Análisis de Variables Categóricas")
     
     columnas_categoricas = df.select_dtypes(include=['object']).columns
     if len(columnas_categoricas) > 0:
@@ -187,7 +187,7 @@ if uploaded_file is not None:
                 st.dataframe(frecuencias)
 
     # --- 8. ANÁLISIS DE CORRELACIONES ---
-    st.header("🔗 Análisis de Correlaciones")
+    st.header("Análisis de Correlaciones")
     
     if len(columnas_numericas) > 1:
         # Matriz de correlación
@@ -221,7 +221,7 @@ if uploaded_file is not None:
             st.dataframe(corr_matrix.style.background_gradient(cmap='coolwarm', vmin=-1, vmax=1))
         
         # Scatter plots para correlaciones fuertes
-        st.subheader("📊 Scatter Plots - Relaciones entre Variables")
+        st.subheader("Scatter Plots - Relaciones entre Variables")
         
         # Encontrar las correlaciones más fuertes
         corr_pairs = []
@@ -246,7 +246,7 @@ if uploaded_file is not None:
                 st.pyplot(fig)
 
     # --- 9. ANÁLISIS TEMPORAL ---
-    st.header("⏰ Análisis Temporal")
+    st.header("Análisis Temporal")
     
     columnas_fecha = df.select_dtypes(include=['datetime64']).columns
     if len(columnas_fecha) > 0:
@@ -263,10 +263,10 @@ if uploaded_file is not None:
                 st.metric("Rango total", f"{(df[col_fecha].max() - df[col_fecha].min()).days} días")
 
     # --- 10. RESUMEN FINAL DE HALLAZGOS ---
-    st.header("📝 Resumen Final de Hallazgos del EDA")
+    st.header("Resumen Final de Hallazgos del EDA")
     
-    with st.expander("🔍 Resumen Ejecutivo", expanded=True):
-        st.subheader("✅ Puntos Fuertes")
+    with st.expander("Resumen Ejecutivo", expanded=True):
+        st.subheader("Puntos Fuertes")
         if missing_values == 0:
             st.write("• No hay valores nulos en el dataset")
         if duplicados == 0:
@@ -276,7 +276,7 @@ if uploaded_file is not None:
         if len(columnas_categoricas) > 0:
             st.write(f"• {len(columnas_categoricas)} variables categóricas para segmentación")
         
-        st.subheader("⚠️ Áreas de Atención")
+        st.subheader("Áreas de Atención")
         if missing_values > 0:
             st.write(f"• Existen {missing_values} valores nulos que requieren tratamiento")
         if duplicados > 0:
@@ -298,11 +298,11 @@ if uploaded_file is not None:
         if outliers_significativos:
             st.write("• Se detectaron valores atípicos que pueden afectar los modelos")
         
-        st.subheader("🎯 Recomendaciones")
+        st.subheader("Recomendaciones")
         st.write("• Considerar imputación para valores nulos si es necesario")
         st.write("• Evaluar el impacto de los outliers en los análisis")
         st.write("• Aprovechar las variables categóricas para segmentación de clientes")
         st.write("• Utilizar las correlaciones identificadas para feature engineering")
 
 else:
-    st.info("⏳ Esperando que subas el archivo CSV…")
+    st.info("Esperando que subas el archivo CSV…")
