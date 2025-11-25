@@ -1,34 +1,37 @@
 import streamlit as st
+import pandas as pd
+import os
 
-st.title("Limpieza y preparación de datos (Data Cleaning & Wrangling)")
+st.title("🧹 Limpieza y preparación de datos")
 
-st.markdown("""
-Objetivo:
-- Dejar los datos consistentes y listos para análisis/modelado.
+# Cargar el dataset
+file_path = "data/datos_clientes.csv"
 
-Limpieza:
-- Valores faltantes: imputar (media/mediana/moda) o eliminar según impacto.
-- Duplicados: identificar y quitar si no aportan.
-- Consistencia: unificar categorías (ej. "México"/"Mexico"/"MEX").
-- Tipos: convertir a fecha, numérico o texto según corresponda.
+if not os.path.exists(file_path):
+    st.error("⚠️ No se encontró el archivo 'datos_clientes.csv' en la carpeta data/")
+else:
+    df = pd.read_csv(file_path)
 
-Feature engineering:
-- Fechas: día de la semana, mes, trimestre, estacionalidad.
-- Ratios y banderas (flags) para reglas simples.
-- Variables dummy para categorías.
+    st.subheader("Datos originales")
+    st.dataframe(df)
 
-Preparación para modelado:
-- Escalado/normalización para algoritmos que lo requieren.
-- Codificación de texto/categorías (one-hot, ordinal) según el caso.
+    # Convertir fechas
+    df["fecha_alta"] = pd.to_datetime(df["fecha_alta"], errors="coerce")
+    df["fecha_ultima_compra"] = pd.to_datetime(df["fecha_ultima_compra"], errors="coerce")
 
-Split de datos:
-- Separar entrenamiento/validación/prueba para evaluar correctamente.
-- Evitar fuga de información: aplicar transformaciones usando solo entrenamiento.
+    # Eliminar duplicados
+    df = df.drop_duplicates()
 
-Checklist:
-- Datos sin nulos críticos ni duplicados.
-- Categorías consistentes y tipos correctos.
-- Conjunto dividido con reproducibilidad (semillas).
-""")
+    # Rellenar valores nulos
+    df["region"] = df["region"].fillna("Sin región")
+    df["canal"] = df["canal"].fillna("Desconocido")
+    df["historial_compra_total"] = df["historial_compra_total"].fillna(0)
 
-st.info("Cuando avances, reemplaza estas indicaciones por la implementación correspondiente de esta etapa.")
+    st.subheader("Datos limpiados")
+    st.dataframe(df)
+
+    # Guardado
+    cleaned_path = "data/datos_clientes_limpios.csv"
+    df.to_csv(cleaned_path, index=False)
+
+    st.success("✔ Archivo limpio guardado en data/datos_clientes_limpios.csv")
