@@ -13,7 +13,7 @@ Identificar de dónde provienen los datos, cómo se obtienen, qué calidad tiene
 
 # --- CONFIGURACIÓN INICIAL ---
 DATASETS = {
-    "clientes": "static/datasets/clientes.csv",
+    "clientes": "static/datasets/datos_clientes.csv",
     "ventas": "static/datasets/ventas.csv"
 }
 

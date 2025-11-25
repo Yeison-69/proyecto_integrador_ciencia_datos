@@ -1,32 +1,29 @@
 import streamlit as st
+import pandas as pd
 
-st.title("Evaluación e interpretación de resultados")
+st.title("4. Limpieza y preparación de datos")
 
-st.markdown("""
-Objetivo:
-- Medir si el análisis o modelo logra el objetivo de negocio y entender por qué.
+file_path = "static/datasets/datos_clientes.csv"
 
-Elegir métricas:
-- Clasificación: accuracy, precision, recall, F1, AUC.
-- Regresión: MAE, RMSE, R².
-- Selecciona la métrica que refleje el costo de errores en tu caso.
+try:
+    df = pd.read_csv(file_path)
 
-Validación:
-- Baseline: compara con una referencia simple.
-- Validación cruzada: evalúa estabilidad en diferentes particiones.
-- Pruebas de robustez: cómo cambia el desempeño con distintos subconjuntos.
+    st.subheader("Antes de limpiar:")
+    st.write(df.head())
 
-Interpretación:
-- Importancia de variables: qué factores influyen más.
-- Análisis de errores: casos en los que falla y por qué.
+    # Limpieza simple
+    df["fecha_alta"] = pd.to_datetime(df["fecha_alta"])
+    df["fecha_ultima_compra"] = pd.to_datetime(df["fecha_ultima_compra"])
 
-Validación con negocio:
-- ¿Responde la pregunta original?
-- ¿Las recomendaciones son útiles y accionables?
-- ¿Los resultados son comprensibles para stakeholders?
+    df = df.dropna()
 
-Salida esperada:
-- Métricas clave, conclusiones y puntos de mejora.
-""")
+    st.subheader("Después de limpiar:")
+    st.write(df.head())
 
-st.info("Cuando avances, reemplaza estas indicaciones por la implementación correspondiente de esta etapa.")
+    # Exportar dataset limpio
+    df.to_csv("static/datasets/datos_limpios.csv", index=False)
+
+    st.success("Archivo 'datos_limpios.csv' generado exitosamente.")
+
+except Exception as e:
+    st.error(f"Error: {str(e)}")

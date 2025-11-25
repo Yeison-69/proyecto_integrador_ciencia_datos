@@ -2,36 +2,41 @@ import streamlit as st
 import pandas as pd
 import os
 
-st.title("🧹 Limpieza y preparación de datos")
+st.title("🧼 Limpieza y preparación de datos")
 
-# Cargar el dataset
-file_path = "data/datos_clientes.csv"
+# Ruta del archivo original
+file_path = "static/datasets/datos_clientes.csv"
 
 if not os.path.exists(file_path):
-    st.error("⚠️ No se encontró el archivo 'datos_clientes.csv' en la carpeta data/")
+    st.error("❌ No se encontró el archivo **clientes.csv** en static/datasets/")
 else:
     df = pd.read_csv(file_path)
-
-    st.subheader("Datos originales")
+    st.subheader("📌 Datos originales")
     st.dataframe(df)
 
-    # Convertir fechas
-    df["fecha_alta"] = pd.to_datetime(df["fecha_alta"], errors="coerce")
-    df["fecha_ultima_compra"] = pd.to_datetime(df["fecha_ultima_compra"], errors="coerce")
+    # Limpieza
+    st.subheader("🧹 Paso 1: Conversión de fechas")
+    df["fecha_alta"] = pd.to_datetime(df["fecha_alta"])
+    df["fecha_ultima_compra"] = pd.to_datetime(df["fecha_ultima_compra"])
 
-    # Eliminar duplicados
-    df = df.drop_duplicates()
+    st.success("Fechas convertidas correctamente")
 
-    # Rellenar valores nulos
-    df["region"] = df["region"].fillna("Sin región")
-    df["canal"] = df["canal"].fillna("Desconocido")
-    df["historial_compra_total"] = df["historial_compra_total"].fillna(0)
+    st.subheader("🧹 Paso 2: Manejo de valores faltantes")
+    df = df.fillna({
+        "historial_compra_total": 0,
+        "frecuencia_12m": 0
+    })
+    st.success("Valores nulos tratados")
 
-    st.subheader("Datos limpiados")
+    st.subheader("🧹 Paso 3: Codificación de variables categóricas")
+    df = pd.get_dummies(df, columns=["region", "canal"], drop_first=True)
+    st.success("Variables categóricas codificadas")
+
+    st.subheader("🧹 Paso 4: Guardar datos limpios")
+    output_path = "static/datasets/datos_limpios.csv"
+    df.to_csv(output_path, index=False)
+
+    st.success(f"Archivo **datos_limpios.csv** creado correctamente en: {output_path}")
+
+    st.subheader("📂 Vista previa final")
     st.dataframe(df)
-
-    # Guardado
-    cleaned_path = "data/datos_clientes_limpios.csv"
-    df.to_csv(cleaned_path, index=False)
-
-    st.success("✔ Archivo limpio guardado en data/datos_clientes_limpios.csv")

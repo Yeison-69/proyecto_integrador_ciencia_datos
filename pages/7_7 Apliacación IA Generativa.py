@@ -1,30 +1,13 @@
 import streamlit as st
 
-st.title("Aplicación IA Generativa (Gemini)")
+st.title("7. Aplicación de IA Generativa")
 
-st.markdown("""
-Objetivo
-- Usar Gemini en Streamlit para apoyar el análisis anterior.
+st.write("""
+Aquí se podrían implementar ejemplos como:
 
-Qué hará
-- Q&A sobre datos y negocio.
-- Sugerencias para EDA, limpieza y features.
-- Explicación de métricas y resultados.
-- Borradores de reportes y storytelling.
+- Generar recomendaciones automáticas.
+- Resumir hallazgos.
+- Crear reportes automáticos.
 
-Prerrequisitos
-- API Key de Gemini en `.streamlit/secrets.toml`.
-- Respetar privacidad (no enviar PII).
-
-Flujo
-- Entrada: pregunta + contexto del proyecto.
-- Proceso: prompt → Gemini.
-- Salida: respuesta y acciones sugeridas.
-
-Siguientes pasos
-- Configurar secretos y cliente.
-- Conectar UI (entrada, modo, botón) a la API.
-- Mostrar respuestas y permitir iteración.
+En este prototipo no usamos API externa.
 """)
-
-st.info("Cuando avances, reemplaza estas indicaciones por la implementación correspondiente de esta etapa.")
