@@ -1,5 +1,0 @@
-id_cliente,fecha_alta,edad,region,canal,historial_compra_total,frecuencia_12m,fecha_ultima_compra,churn
-1001,2022-12-15,28,Norte,Online,1250.5,8,2024-12-10,0
-1002,2023-02-03,35,Sur,Tienda,980.0,5,2024-11-22,0
-1003,2021-07-19,42,Centro,CallCenter,300.0,2,2024-06-15,1
-

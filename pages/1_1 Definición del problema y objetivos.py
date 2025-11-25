@@ -1,40 +1,31 @@
 import streamlit as st
 
-st.title("Definición del problema y objetivos (Business Understanding)")
+st.title("📌 1.1 Definición del problema y objetivos")
 
 st.markdown("""
-¿Qué es esta etapa?
-- Define con palabras simples qué quieres lograr y por qué.
-- El resultado es una frase clara con objetivos y cómo medir el éxito.
+## 🎯 Definición del problema
 
-Cómo redactar el problema:
-- Plantilla: "Queremos [acción] para [impacto] en [área/cliente]".
-- Ejemplos:
-  - "Reducir el churn de clientes en 15% en 12 meses".
-  - "Predecir ventas del próximo trimestre para planificar inventario".
-  - "Detectar posibles fraudes en transacciones en tiempo real".
+Queremos **analizar el comportamiento del premio mayor de la Lotería de Medellín** con el fin de:
 
-KPIs (métricas de éxito):
-- Deben ser SMART (Específicos, Medibles, Alcanzables, Relevantes, con Tiempo).
-- Ejemplos:
-  - Churn: tasa de cancelación mensual.
-  - Ventas: error medio absoluto (MAE) de la predicción.
-  - Fraude: recall en casos de fraude + tasa de falsos positivos aceptable.
+- Identificar tendencias.
+- Analizar variaciones en los montos.
+- Detectar patrones por ciudad o fecha.
+- Facilitar decisiones para estrategias estadísticas o de negocio.
 
-Stakeholders:
-- ¿Quién usa el resultado? (gerentes, marketing, finanzas, atención al cliente).
-- Define decisiones que soportará el modelo/informe.
-- Acordar criterios de éxito y restricciones (presupuesto, tiempos, regulaciones).
+## 🌟 Objetivo general
+Explorar y comprender las características históricas del premio mayor de la Lotería de Medellín.
 
-Alcance y supuestos:
-- Qué sí y qué no se hará (anti-objetivos).
-- Supuestos iniciales y riesgos (datos incompletos, cambios de negocio).
+## 📏 KPIs (Métricas)
+- Promedio de premio por mes.
+- Variación porcentual semana a semana.
+- Ciudad con mayor cantidad de premios altos.
 
-Checklist para completar:
-- Problema escrito en una frase.
-- KPIs definidos con umbrales.
-- Stakeholders y decisiones identificadas.
-- Criterios de éxito y límites acordados.
+## 👥 Stakeholders
+- Equipo académico.
+- Área de analítica.
+- Profesores evaluadores.
+
+## 🚫 Alcance
+No se predicen resultados futuros ni números ganadores.
+El objetivo es **analítico y descriptivo**, no predictivo.
 """)
-
-st.info("Cuando avances, reemplaza estas indicaciones por la implementación correspondiente de esta etapa.")

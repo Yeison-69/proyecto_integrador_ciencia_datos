@@ -1,29 +1,9 @@
 import streamlit as st
-import pandas as pd
+from utils.carga_datos import cargar_datos_loteria
 
-st.title("4. Limpieza y preparación de datos")
+st.title("📈 5.5 Evaluación e interpretación")
 
-file_path = "static/datasets/datos_clientes.csv"
+df = cargar_datos_loteria()
 
-try:
-    df = pd.read_csv(file_path)
-
-    st.subheader("Antes de limpiar:")
-    st.write(df.head())
-
-    # Limpieza simple
-    df["fecha_alta"] = pd.to_datetime(df["fecha_alta"])
-    df["fecha_ultima_compra"] = pd.to_datetime(df["fecha_ultima_compra"])
-
-    df = df.dropna()
-
-    st.subheader("Después de limpiar:")
-    st.write(df.head())
-
-    # Exportar dataset limpio
-    df.to_csv("static/datasets/datos_limpios.csv", index=False)
-
-    st.success("Archivo 'datos_limpios.csv' generado exitosamente.")
-
-except Exception as e:
-    st.error(f"Error: {str(e)}")
+st.write("Promedio general del premio:")
+st.metric("Promedio (millones)", df["premio_mayor_millones"].mean())
