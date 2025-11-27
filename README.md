@@ -1,102 +1,206 @@
-# Proyecto Integrador de Ciencia de Datos
+# Proyecto Integrador de Ciencia de Datos - Lotería de Medellín
 
-Guía rápida para ejecutar, entender la estructura y configurar el proyecto. El contenido de las páginas está pensado para principiantes y sirve como checklist: reemplázalo por la implementación correspondiente cuando avances.
+Análisis completo de 18 años de historia de sorteos de la Lotería de Medellín (2007-2025) con visualizaciones interactivas e inteligencia artificial.
 
-## Estructura del proyecto
+## 🎯 Descripción
 
-- `Inicio.py`: portada del proyecto y equipo de trabajo.
-- `pages/`: secciones del flujo del proyecto (negocio, datos, EDA, limpieza, evaluación, comunicación, IA generativa).
-- `.streamlit/`: configuración de Streamlit y secretos.
-- `static/`: archivos estáticos (datasets de ejemplo, documentación auxiliar).
+Este proyecto aplica metodologías de ciencia de datos (CRISP-DM) para analizar **976 sorteos** históricos, identificando patrones en números ganadores, series y tendencias temporales mediante:
 
-## Configuración de Streamlit
+- **Análisis Exploratorio de Datos (EDA)** exhaustivo
+- **Visualizaciones Interactivas** con Plotly
+- **Pruebas Estadísticas** de uniformidad, normalidad e independencia
+- **Inteligencia Artificial** con Google Gemini para análisis asistido
 
-- Archivo: `c:\Users\jhonf\Desktop\Ejericicios\proyecto_integrador_ciencia_datos\.streamlit\config.toml`
-- Contenido mínimo recomendado:
+## 📊 Dataset
 
-```toml
-enableStaticServing = true
-```
+- **Registros**: 976 sorteos
+- **Periodo**: 2007-2025 (18 años)
+- **Variables**: Fecha, Sorteo, Número (0-9999), Serie
+- **Calidad**: 100% completitud, sin valores faltantes
 
-Esto habilita servir archivos estáticos desde la carpeta `static/`.
+## 🚀 Instalación
 
-### Secretos
+### Requisitos Previos
 
-- Archivo: `c:\Users\jhonf\Desktop\Ejericicios\proyecto_integrador_ciencia_datos\.streamlit\secrets.toml`
-- Guarda aquí claves privadas (no se versiona si mantienes el `.gitignore` actualizado).
-- Ejemplo:
+- Python 3.8 o superior
+- pip (gestor de paquetes de Python)
 
-```toml
-# Ejemplos de secretos (reemplazar con valores reales)
-db_username = "Jane"
-gemini_api_key = "TU_API_KEY_DE_GEMINI"
-```
+### Pasos de Instalación
 
-En el código, accede así:
-
-```python
-import streamlit as st
-api_key = st.secrets.get("gemini_api_key")
-```
-
-## Datos de ejemplo (static)
-
-- Carpeta: `c:\Users\jhonf\Desktop\Ejericicios\proyecto_integrador_ciencia_datos\static\datasets`
-- Incluye:
-  - `clientes.csv`: clientes y churn.
-  - `ventas.csv`: ventas por fecha y categoría.
-  - `diccionario_datos.json`: significado de columnas.
-
-Lectura sugerida desde código (cuando implementes):
-
-```python
-import pandas as pd
-df_clientes = pd.read_csv("static/datasets/clientes.csv")
-df_ventas = pd.read_csv("static/datasets/ventas.csv")
-```
-
-## Ejecución
-
-1. Crea y activa tu entorno (opcional).
-2. Instala dependencias mínimas:
+1. **Clonar o descargar el proyecto**
 
 ```bash
-pip install streamlit
+cd proyecto_integrador_ciencia_datos
 ```
 
-3. Ejecuta la app:
+2. **Instalar dependencias**
+
+```bash
+pip install -r requirements.txt
+```
+
+3. **Configurar API de Gemini (Opcional)**
+
+Para usar la funcionalidad de IA, crea el archivo `.streamlit/secrets.toml`:
+
+```toml
+[gemini]
+api_key = "TU_API_KEY_AQUI"
+```
+
+Obtén tu API key en: https://makersuite.google.com/app/apikey
+
+4. **Ejecutar la aplicación**
 
 ```bash
 streamlit run Inicio.py
 ```
 
-## Flujo de trabajo (páginas)
+La aplicación se abrirá automáticamente en tu navegador en `http://localhost:8501`
 
-- `1_1. Definición del problema y objetivos.py`: escribe el problema de negocio, KPIs SMART, stakeholders y alcance.
-- `2_2. Recolección de datos.py`: documenta fuentes, permisos, trazabilidad y calidad.
-- `3_3. Exploración inicial y comprensión de los datos.py.py`: realiza EDA básica y registra hallazgos.
-- `4_4. Limpieza y preparación de datos.py`: trata nulos/duplicados, unifica categorías, genera features.
-- `5_5. Evaluación e interpretación de resultados.py`: elige métricas, valida, interpreta y alinea con negocio.
-- `6_6. Comunicación de resultados (Storytelling & Visualización).py`: plantea narrativa, visuales y recomendaciones.
-- `7_7. Apliacación IA Generativa.py`: integra Gemini para Q&A, sugerencias y storytelling basado en tu análisis.
+## 📁 Estructura del Proyecto
 
-Cada página incluye un aviso: reemplaza las indicaciones por la implementación correspondiente cuando estés listo.
+```
+proyecto_integrador_ciencia_datos/
+├── Inicio.py                          # Página principal
+├── pages/                             # Páginas de la aplicación
+│   ├── 1_1 Definición del problema y objetivos.py
+│   ├── 2_2 Recolección de datos.py
+│   ├── 3_3 Exploración inicial y comprensión de los datos.py
+│   ├── 4_4 Limpieza y preparación de datos.py
+│   ├── 5_5 Evaluación e interpretación de resultados.py
+│   ├── 6_6 Comunicación de resultados (Storytelling & Visualización).py
+│   └── 7_7 Apliacación IA Generativa.py
+├── utils/                             # Utilidades y funciones helper
+│   ├── carga_datos.py                # Carga y procesamiento de datos
+│   ├── graficos.py                   # Visualizaciones con Plotly
+│   ├── eda_helpers.py                # Funciones de análisis exploratorio
+│   ├── ai_helpers.py                 # Integración con Gemini
+│   └── validaciones.py               # Validaciones de datos
+├── data/                              # Datos del proyecto
+│   └── premio_mayor_loteria_medellin.csv
+├── .streamlit/                        # Configuración de Streamlit
+│   ├── config.toml                   # Configuración general
+│   └── secrets.toml.example          # Template para secrets
+├── requirements.txt                   # Dependencias del proyecto
+└── README.md                          # Este archivo
+```
 
-## IA Generativa (Gemini)
+## 🎨 Características Principales
 
-- Requisitos: clave en `secrets.toml` (`gemini_api_key`).
-- Usa prompts con contexto del proyecto (problema, KPIs, resumen de datos, hallazgos, métricas).
-- Interacciones sugeridas: Q&A, recomendaciones de EDA/limpieza/features, explicación de métricas, borradores de reportes.
+### 1. Análisis Exploratorio Completo
+- Estadísticas descriptivas detalladas
+- Distribuciones de números y series
+- Análisis temporal (años, meses, días de semana)
+- Detección de outliers
+- Análisis de frecuencias
 
-## Buenas prácticas
+### 2. Visualizaciones Interactivas (15+)
+- Distribución de números ganadores
+- Evolución temporal de sorteos
+- Frecuencia por día de semana
+- Top números y series más frecuentes
+- Mapas de calor mes-año
+- Box plots por año
+- Scatter plots número-serie
+- Y más...
 
-- No subas secretos ni datos sensibles; usa `secrets.toml`.
-- Documenta versiones/fechas de extracción de datos.
-- Mantén reproducibilidad (semillas, splits, transformaciones solo con train).
-- Valida con stakeholders que los resultados responden a la pregunta de negocio.
+### 3. Pruebas Estadísticas
+- Test Chi-cuadrado (uniformidad)
+- Test Shapiro-Wilk (normalidad)
+- Análisis de autocorrelación
+- Pruebas de independencia
 
-## Problemas comunes y soluciones
+### 4. IA Generativa con Gemini
+- **Q&A**: Pregunta sobre los datos y obtén respuestas contextuales
+- **Insights Automáticos**: Generación de hallazgos clave
+- **Reportes Narrativos**: Creación de reportes ejecutivos
+- **Sugerencias**: Análisis adicionales recomendados
+- **Explicaciones**: Interpretación de métricas complejas
 
-- No carga archivos de `static/`: verifica `enableStaticServing = true` en `config.toml` y rutas relativas correctas.
-- Clave de Gemini no encontrada: revisa `secrets.toml` y acceso con `st.secrets`.
-- Datos con caracteres extraños: especifica `encoding="utf-8"` al leer CSV.
+### 5. Dashboard Interactivo
+- Filtros por año, rango de números y series
+- Visualizaciones dinámicas
+- Exploración personalizada de datos
+
+## 📖 Guía de Uso
+
+### Navegación
+
+La aplicación está organizada en 7 secciones siguiendo la metodología CRISP-DM:
+
+1. **Definición del Problema**: Objetivos, KPIs y alcance
+2. **Recolección de Datos**: Fuentes, metadata y calidad
+3. **Exploración de Datos**: EDA con 5 tabs de análisis
+4. **Limpieza y Preparación**: Validación y feature engineering
+5. **Evaluación**: Métricas, pruebas estadísticas e insights
+6. **Comunicación**: Storytelling y dashboard interactivo
+7. **IA Generativa**: Asistente inteligente con Gemini
+
+### Ejemplos de Uso
+
+#### Explorar Distribución de Números
+1. Ve a la página 3 (Exploración de Datos)
+2. Selecciona el tab "Análisis de Números"
+3. Interactúa con los gráficos (zoom, pan, hover)
+
+#### Generar Insights con IA
+1. Ve a la página 7 (IA Generativa)
+2. Selecciona el tab "Insights Automáticos"
+3. Haz clic en "Generar Insights"
+4. Espera la respuesta de Gemini
+
+#### Filtrar Datos en el Dashboard
+1. Ve a la página 6 (Comunicación de Resultados)
+2. Desplázate hasta "Dashboard Interactivo"
+3. Usa los filtros de año, número y serie
+4. Observa cómo cambian las visualizaciones
+
+## 🔧 Tecnologías Utilizadas
+
+- **Python 3.8+**: Lenguaje de programación
+- **Streamlit**: Framework para aplicaciones web
+- **Plotly**: Visualizaciones interactivas
+- **Pandas**: Manipulación de datos
+- **NumPy**: Computación numérica
+- **SciPy**: Análisis estadístico
+- **Google Generative AI**: Integración con Gemini
+
+## 📊 Hallazgos Principales
+
+- **976 sorteos** analizados en 18 años
+- **Distribución aproximadamente uniforme** de números
+- **No se detectaron patrones predecibles** explotables
+- **Pares e impares** aproximadamente 50-50
+- **Independencia** entre sorteos consecutivos
+- **Diversidad alta**: 60%+ del espacio de números utilizado
+
+## ⚠️ Limitaciones
+
+- Análisis descriptivo, no predictivo
+- No incluye información de premios monetarios
+- Los patrones históricos no garantizan resultados futuros
+- La lotería es un juego de azar puro
+
+## 🤝 Contribuciones
+
+Este es un proyecto académico. Las sugerencias y mejoras son bienvenidas.
+
+## 📄 Licencia
+
+Proyecto educativo - Datos públicos de la Lotería de Medellín
+
+## 👥 Autor
+
+Proyecto Integrador de Ciencia de Datos
+
+## 🔗 Enlaces Útiles
+
+- [Documentación de Streamlit](https://docs.streamlit.io/)
+- [Plotly Python](https://plotly.com/python/)
+- [Google Gemini API](https://ai.google.dev/)
+- [Pandas Documentation](https://pandas.pydata.org/)
+
+---
+
+**Nota Importante**: Este proyecto tiene fines educativos y estadísticos. La lotería es un juego de azar y ningún análisis puede predecir resultados futuros. Juega responsablemente.
